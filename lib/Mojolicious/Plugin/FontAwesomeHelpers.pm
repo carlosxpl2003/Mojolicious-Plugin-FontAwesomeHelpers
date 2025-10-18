@@ -3,38 +3,39 @@ use Mojo::Base 'Mojolicious::Plugin';
 
 use version; our $VERSION = version->declare('v0.1.0');
 
-use Carp ();
+use Carp         ();
 use Scalar::Util qw(blessed);
-use subs qw(extract_block extract_flags);
+use subs         qw(extract_block extract_flags);
 
 sub register {
   my $self = shift;
   my $app  = shift;
 
-  $app->helper('icon' => \&_icon);
+  $app->helper('icon'    => \&_icon);
   $app->helper('fa_icon' => \&_icon);
   $app->helper('fa.icon' => \&_icon);
 
   $app->helper('stacked_icon' => \&_stack);
-  $app->helper('fa_stack' => \&_stack);
-  $app->helper('fa.stack' => \&_stack);
+  $app->helper('fa_stack'     => \&_stack);
+  $app->helper('fa.stack'     => \&_stack);
 
   $app->helper('fa.class' => sub { shift; _fa_class(@_) });
 }
 
 sub _stack {
-  my $c = shift;
+  my $c             = shift;
   my $content_class = _fa_class('fa-stack', @_);
 
   my $content;
   if (@_ % 2 == 1) {
     my $block = extract_block \@_;
     $content = $block ? $block->() : pop;
-  } else {
+  }
+  else {
     Carp::croak "content is required in the form of text or a block";
   }
 
-  my %html_options  = @_;
+  my %html_options = @_;
   $content_class .= " $html_options{class}" if $html_options{class};
   $html_options{class} = $content_class;
 
@@ -49,7 +50,7 @@ sub _icon {
   my $text;
   if (@_ % 2 == 1) {
     my $block = extract_block \@_;
-    $text  = $block ? $block->() : pop;
+    $text = $block ? $block->() : pop;
   }
 
   my %html_options = @_;
@@ -86,24 +87,28 @@ sub _fa_class {
   if (my $spin = $options{-spin}) {
     if ($spin eq 1) {
       $class .= " fa-spin";
-    } elsif (ref $spin eq 'ARRAY') {
-      $class .= " " . join(' ' => map { "fa-spin-$_" } @$spin);
-    } else {
-      $class .= " fa-spin-$spin"
+    }
+    elsif (ref $spin eq 'ARRAY') {
+      $class .= " " . join(' ' => map {"fa-spin-$_"} @$spin);
+    }
+    else {
+      $class .= " fa-spin-$spin";
     }
   }
 
   if (my $flip = $options{-flip}) {
     if ($flip eq 1) {
       $class .= " fa-flip";
-    } else {
+    }
+    else {
       $class .= " fa-flip-$flip";
     }
   }
 
   if ($options{-beat} && $options{-fade}) {
     $class .= " fa-beat-fade";
-  } else {
+  }
+  else {
     $class .= " fa-beat" if $options{-beat};
     $class .= " fa-fade" if $options{-fade};
   }
@@ -130,16 +135,17 @@ sub extract_block {
 
 sub extract_flags {
   my $arrayref = shift;
-  my %flags = ();
+  my %flags    = ();
 
- ITEM:
+ITEM:
   for (my $i = 0; $i < @$arrayref; $i++) {
     my $item = $arrayref->[$i];
     if ($item =~ /^-/) {
       $flags{$item} = $arrayref->[$i + 1];
       splice @$arrayref, $i => 2;
       last ITEM unless @$arrayref;
-      $i -= 2; next ITEM;
+      $i -= 2;
+      next ITEM;
     }
     if ($item =~ /^:/) {
       $item =~ s/^:/-/;
