@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+pod2markdown lib/Mojolicious/Plugin/FontAwesomeHelpers.pm > README.md
