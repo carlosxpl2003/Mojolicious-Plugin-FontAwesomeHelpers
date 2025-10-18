@@ -1,7 +1,7 @@
 package Mojolicious::Plugin::FontAwesomeHelpers;
 use Mojo::Base 'Mojolicious::Plugin';
 
-our $VERSION = '0.001';
+use version; our $VERSION = version->declare('v0.1.0');
 
 use Carp ();
 use Scalar::Util qw(blessed);
