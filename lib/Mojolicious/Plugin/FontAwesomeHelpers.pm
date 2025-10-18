@@ -1,6 +1,8 @@
 package Mojolicious::Plugin::FontAwesomeHelpers;
 use Mojo::Base 'Mojolicious::Plugin', -signatures;
 
+our $VERSION = '0.001';
+
 use Carp ();
 use Scalar::Util qw(blessed);
 use subs qw(extract_block extract_flags);
@@ -150,7 +152,7 @@ sub extract_flags ($arrayref) {
 
 =head1 NAME
 
-Mojolicious::Plugin::FontAwesomeHelpers - Helper methods for Font Awesome icons
+Mojolicious::Plugin::FontAwesomeHelpers - Mojolicious helpers for Font Awesome icons
 
 =head1 SYNOPSIS
 
