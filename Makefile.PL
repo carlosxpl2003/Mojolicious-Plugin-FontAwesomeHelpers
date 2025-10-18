@@ -28,7 +28,7 @@ WriteMakefile(
     },
   },
   PREREQ_PM    => {
-    'Mojolicious' => '9.0',
+    'Mojolicious' => 0,
   },
   test         => {
     TESTS => 't/Mojolicious/Plugin/FontAwesomeHelpers.t'
