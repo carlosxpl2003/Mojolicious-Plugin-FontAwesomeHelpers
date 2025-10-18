@@ -1,5 +1,5 @@
 package Mojolicious::Plugin::FontAwesomeHelpers;
-use Mojo::Base 'Mojolicious::Plugin', -signatures;
+use Mojo::Base 'Mojolicious::Plugin';
 
 our $VERSION = '0.001';
 
@@ -7,7 +7,10 @@ use Carp ();
 use Scalar::Util qw(blessed);
 use subs qw(extract_block extract_flags);
 
-sub register($self, $app, $conf) {
+sub register {
+  my $self = shift;
+  my $app  = shift;
+
   $app->helper('icon' => \&_icon);
   $app->helper('fa_icon' => \&_icon);
   $app->helper('fa.icon' => \&_icon);
@@ -16,7 +19,7 @@ sub register($self, $app, $conf) {
   $app->helper('fa_stack' => \&_stack);
   $app->helper('fa.stack' => \&_stack);
 
-  $app->helper('fa.class' => sub ($, @args) { _fa_class(@args) });
+  $app->helper('fa.class' => sub { shift; _fa_class(@_) });
 }
 
 sub _stack {
@@ -60,9 +63,10 @@ sub _icon {
   return $html;
 }
 
-sub _fa_class ($icon, @args) {
+sub _fa_class {
+  my $icon    = shift;
   my $class   = blessed($icon) ? _try($icon, 'fa_class') : $icon;
-  my %options = extract_flags \@args;
+  my %options = extract_flags \@_;
 
   $class .= " fa-$options{-size}"          if $options{-size};
   $class .= " fa-pull-$options{-pull}"     if $options{-pull};
@@ -109,7 +113,8 @@ sub _fa_class ($icon, @args) {
 
 # Utils
 
-sub _try($value, $method_name) {
+sub _try {
+  my ($value, $method_name) = @_;
   return unless blessed($value);
 
   if (my $method = $value->can('fa_class')) {
@@ -117,12 +122,14 @@ sub _try($value, $method_name) {
   }
 }
 
-sub extract_block ($arrayref) {
+sub extract_block {
+  my $arrayref = shift;
   return delete $arrayref->[-1] if ref $arrayref->[-1] eq 'CODE';
   return undef;
 }
 
-sub extract_flags ($arrayref) {
+sub extract_flags {
+  my $arrayref = shift;
   my %flags = ();
 
  ITEM:
